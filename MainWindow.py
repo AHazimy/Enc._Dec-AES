@@ -11,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(294, 279)
+        MainWindow.resize(294, 324)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.lineEdit_source = QtWidgets.QLineEdit(self.centralwidget)
@@ -27,7 +27,7 @@ class Ui_MainWindow(object):
         self.btn_browse_destination.setGeometry(QtCore.QRect(190, 100, 75, 23))
         self.btn_browse_destination.setObjectName("btn_browse_destination")
         self.btn_run = QtWidgets.QPushButton(self.centralwidget)
-        self.btn_run.setGeometry(QtCore.QRect(20, 200, 241, 23))
+        self.btn_run.setGeometry(QtCore.QRect(20, 240, 241, 23))
         self.btn_run.setObjectName("btn_run")
         self.rb_encrypt = QtWidgets.QRadioButton(self.centralwidget)
         self.rb_encrypt.setGeometry(QtCore.QRect(30, 160, 82, 17))
@@ -35,6 +35,9 @@ class Ui_MainWindow(object):
         self.rb_decrypt = QtWidgets.QRadioButton(self.centralwidget)
         self.rb_decrypt.setGeometry(QtCore.QRect(190, 160, 82, 17))
         self.rb_decrypt.setObjectName("rb_decrypt")
+        self.lineEdit_password = QtWidgets.QLineEdit(self.centralwidget)
+        self.lineEdit_password.setGeometry(QtCore.QRect(20, 200, 241, 20))
+        self.lineEdit_password.setObjectName("lineEdit_password")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 294, 21))

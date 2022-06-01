@@ -1,3 +1,6 @@
+"""1. Ability to Encrypt and Decrypt Directory"""
+"""DONE===>2. Ability to Encrypt and Decrypt Files"""
+
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
@@ -11,20 +14,22 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
         self.setupUi(self)
-        
-    password = '12345'    
-        
-    def derive_key_and_iv(password, salt, key_length, iv_length): #derive key and IV from password and salt.
-        d = d_i = b''
-        while len(d) < key_length + iv_length:
-            d_i = md5(d_i + str.encode(password) + salt).digest() #obtain the md5 hash value
-            d += d_i
-        return d[:key_length], d[key_length:key_length+iv_length]
+        self.btn_browse_source.clicked.connect(lambda: self.browse(self.lineEdit_source, "src"))
+        self.btn_browse_destination.clicked.connect(lambda: self.browse(self.lineEdit_destination, "dest"))
+        self.btn_run.clicked.connect(lambda: self.choose_enc_dec(self.lineEdit_password.text(), self.lineEdit_source.text(), self.lineEdit_destination.text()))
+          
+    def browse(self, line_edit, status):
+        if status == "src":
+            filename=QFileDialog.getOpenFileName(self, 'Open File', '', '')
+            line_edit.setText(filename[0])
+        elif status == "dest":
+            filename=QFileDialog.getSaveFileName(self, 'Save File', '', '')
+            line_edit.setText(filename[0])
 
-    def encrypt(in_file, out_file, password, key_length=32):
+    def encrypt(self, in_file, out_file, password, key_length=32):
         global bs
-        bs = AES.block_size #16 bytes
         global salt
+        bs = AES.block_size #16 bytes
         salt = urandom(bs) #return a string of random bytes
         key, iv = self.derive_key_and_iv(password, salt, key_length, bs)
         cipher = AES.new(key, AES.MODE_CBC, iv)
@@ -39,7 +44,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 finished = True
             out_file.write(cipher.encrypt(chunk))
 
-    def decrypt(in_file, out_file, password, key_length=32):
+    def decrypt(self, in_file, out_file, password, key_length=32):
+        global bs
+        global salt
         bs = AES.block_size
         salt = in_file.read(bs)
         key, iv = self.derive_key_and_iv(password, salt, key_length, bs)
@@ -54,6 +61,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 finished = True 
             out_file.write(bytes(x for x in chunk)) 
 
+    def derive_key_and_iv(self, password, salt, key_length, iv_length): #derive key and IV from password and salt.
+        d = d_i = b''
+        while len(d) < key_length + iv_length:
+            d_i = md5(d_i + str.encode(password) + salt).digest() #obtain the md5 hash value
+            d += d_i
+        return d[:key_length], d[key_length:key_length+iv_length]
 
      #shouldn't be something this simple
     def run_enc(self, password, src_path, dest_path):
@@ -63,3 +76,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def run_dec(self, password, src_path,dest_path):
         with open(src_path, 'rb') as in_file, open(dest_path, 'wb') as out_file:
             self.decrypt(in_file, out_file, password)
+            
+    def choose_enc_dec(self, password, src_path,dest_path):
+        if self.rb_encrypt.isChecked():
+            self.run_enc(password, src_path,dest_path)
+        elif self.rb_decrypt.isChecked():
+            self.run_dec(password, src_path,dest_path)
+            
+            
+app=QApplication([])
+window=MainWindow()
+window.show()
+app.exec()

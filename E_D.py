@@ -30,7 +30,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global bs
         global salt
         bs = AES.block_size #16 bytes
-        salt = urandom(bs) #return a string of random bytes
+        salt = urandom(bs) 
         key, iv = self.derive_key_and_iv(password, salt, key_length, bs)
         cipher = AES.new(key, AES.MODE_CBC, iv)
         out_file.write(salt)
@@ -38,7 +38,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         while not finished:
             chunk = in_file.read(1024 * bs) 
-            if len(chunk) == 0 or len(chunk) % bs != 0:#final block/chunk is padded before encryption
+            if len(chunk) == 0 or len(chunk) % bs != 0:
                 padding_length = (bs - len(chunk) % bs) or bs
                 chunk += str.encode(padding_length * chr(padding_length))
                 finished = True
@@ -61,14 +61,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 finished = True 
             out_file.write(bytes(x for x in chunk)) 
 
-    def derive_key_and_iv(self, password, salt, key_length, iv_length): #derive key and IV from password and salt.
+    def derive_key_and_iv(self, password, salt, key_length, iv_length): 
         d = d_i = b''
         while len(d) < key_length + iv_length:
-            d_i = md5(d_i + str.encode(password) + salt).digest() #obtain the md5 hash value
+            d_i = md5(d_i + str.encode(password) + salt).digest()
             d += d_i
         return d[:key_length], d[key_length:key_length+iv_length]
 
-     #shouldn't be something this simple
+
     def run_enc(self, password, src_path, dest_path):
         with open(src_path, 'rb') as in_file, open(dest_path, 'wb') as out_file:
             self.encrypt(in_file, out_file, password)

@@ -8,6 +8,8 @@ from hashlib import md5
 from Cryptodome.Cipher import AES
 from os import urandom
 from MainWindow import Ui_MainWindow
+import shutil
+
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -17,6 +19,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.btn_browse_source.clicked.connect(lambda: self.browse(self.lineEdit_source, "src"))
         self.btn_browse_destination.clicked.connect(lambda: self.browse(self.lineEdit_destination, "dest"))
         self.btn_run.clicked.connect(lambda: self.choose_enc_dec(self.lineEdit_password.text(), self.lineEdit_source.text(), self.lineEdit_destination.text()))
+        self.btn_test.clicked.connect(lambda: self.test(self.lineEdit_destination.text(), self.lineEdit_source.text()))
+        
+    def test(self, output, input):
+        shutil.make_archive(output, 'zip', input)
           
     def browse(self, line_edit, status):
         if status == "src":
@@ -25,6 +31,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         elif status == "dest":
             filename=QFileDialog.getSaveFileName(self, 'Save File', '', '')
             line_edit.setText(filename[0])
+        # dirName=QFileDialog.getExistingDirectory(None, 'Select a folder:', 'C:\\',QFileDialog.ShowDirsOnly)
+        # line_edit.setText(dirName)
 
     def encrypt(self, in_file, out_file, password, key_length=32):
         global bs

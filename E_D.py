@@ -1,6 +1,7 @@
 """DONE===>1. Ability to Encrypt and Decrypt Directory"""
 """DONE===>2. Ability to Encrypt and Decrypt Files"""
-"""Fixing3. Fix after decrypt a folder to make his type as folder, beacuse he still unknown type"""
+"""######### Big Bug ###########3. Fix The path or the name or the type for the decrypted files and folders
+If i can save it without full path in the zip file the problem will be solved"""
 
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
@@ -10,7 +11,7 @@ from Cryptodome.Cipher import AES
 from os import urandom, remove
 from MainWindow import Ui_MainWindow
 import shutil
-import time
+from zipfile import ZipFile
 
 
 
@@ -33,15 +34,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     #My work is here      
     def browse(self, line_edit, status):
         if status == "src":
-            if self.rb_file.isChecked() or (self.rb_folder.isChecked() and self.rb_decrypt.isChecked()):
+            if (self.rb_file.isChecked() and self.tabWidget.currentIndex()==1) or (self.rb_folder.isChecked() and self.tabWidget.currentIndex()==1) or (self.rb_file.isChecked() and self.tabWidget.currentIndex()==0):
                 filename=QFileDialog.getOpenFileName(self, 'Open File', '', '')
                 line_edit.setText(filename[0])
             else:
                 dirName=QFileDialog.getExistingDirectory(None, 'Select a folder:', 'C:\\',QFileDialog.ShowDirsOnly)
                 line_edit.setText(dirName)
         elif status == "dest":
-            filename=QFileDialog.getSaveFileName(self, 'Save File', '', '')
-            line_edit.setText(filename[0])
+            # if (self.rb_file.isChecked() and self.tabWidget.currentIndex()==1) or (self.rb_folder.isChecked() and self.tabWidget.currentIndex()==1):
+            filename=QFileDialog.getExistingDirectory(None, 'Select a folder:', 'C:\\',QFileDialog.ShowDirsOnly)
+            line_edit.setText(filename)
+            # else:
+            #     filename=QFileDialog.getSaveFileName(self, 'Save File', '', '')
+            #     line_edit.setText(filename[0])
+                
 
 
     def encrypt(self, in_file, out_file, password, key_length=32):
@@ -97,21 +103,40 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             
     def choose_enc_dec(self, password, src_path,dest_path):
         if self.rb_file.isChecked():
-            if self.rb_encrypt.isChecked():
-                self.run_enc(password, src_path,dest_path)
-            elif self.rb_decrypt.isChecked():
-                self.run_dec(password, src_path,dest_path)
+            #if self.rb_encrypt.isChecked():
+            
+            if self.tabWidget.currentIndex() == 0: 
+                with ZipFile("Temp/compressed.zip", "w") as newzip:
+                    newzip.write(src_path)
+                self.run_enc(password, 'Temp/compressed.zip',dest_path+str("/"+src_path.split("/")[-1].split(".")[0]))
+                remove("Temp/compressed.zip")
+                
+            #elif self.rb_decrypt.isChecked():
+            elif self.tabWidget.currentIndex() == 1:
+                self.run_dec(password, src_path,'Temp/compressed.zip')
+                with ZipFile('Temp/compressed.zip', 'r') as zip:
+                    content=zip.namelist()
+                    zip.extractall(dest_path+"/"+str(content[0].split("/")[-1]))
+                    print(content[0].split("/")[-1])
+                remove("Temp/compressed.zip")
+                
         else:
             #I should to delete the encrypted folder after decrypting it
             #if i want
-            if self.rb_encrypt.isChecked():
+            # if self.rb_encrypt.isChecked():
+            if self.tabWidget.currentIndex() == 0: 
                 self.compress_folder('Temp/compressed', src_path)
                 # time.sleep(2)
                 self.run_enc(password, 'Temp/compressed.zip',dest_path)
                 remove("Temp/compressed.zip")
+                
+                
             else:
                 self.run_dec(password, src_path,'Temp/compressed.zip')
-                self.compress_folder(dest_path, 'Temp/compressed.zip')
+                with ZipFile('Temp/compressed.zip', 'r') as zip:
+                    content=zip.namelist()
+                    # zip.extractall(dest_path+str(content[0]))
+                self.compress_folder(dest_path+str(content[0]), 'Temp/compressed.zip')
                 remove("Temp/compressed.zip")
                 
 app=QApplication([])

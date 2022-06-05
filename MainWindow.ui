@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>425</width>
-    <height>353</height>
+    <width>723</width>
+    <height>480</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,16 +15,9 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLineEdit" name="lineEdit_source">
-    <property name="geometry">
-     <rect>
-      <x>22</x>
-      <y>30</y>
-      <width>151</width>
-      <height>20</height>
-     </rect>
+    <property name="enabled">
+     <bool>false</bool>
     </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit_destination">
     <property name="geometry">
      <rect>
       <x>22</x>
@@ -34,11 +27,24 @@
      </rect>
     </property>
    </widget>
+   <widget class="QLineEdit" name="lineEdit_destination">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>22</x>
+      <y>170</y>
+      <width>151</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
    <widget class="QPushButton" name="btn_browse_source">
     <property name="geometry">
      <rect>
       <x>190</x>
-      <y>30</y>
+      <y>100</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -51,7 +57,7 @@
     <property name="geometry">
      <rect>
       <x>190</x>
-      <y>100</y>
+      <y>170</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -64,7 +70,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>240</y>
+      <y>310</y>
       <width>241</width>
       <height>23</height>
      </rect>
@@ -77,7 +83,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>160</y>
+      <y>230</y>
       <width>82</width>
       <height>17</height>
      </rect>
@@ -96,7 +102,7 @@
     <property name="geometry">
      <rect>
       <x>190</x>
-      <y>160</y>
+      <y>230</y>
       <width>82</width>
       <height>17</height>
      </rect>
@@ -112,7 +118,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>200</y>
+      <y>270</y>
       <width>241</width>
       <height>20</height>
      </rect>
@@ -122,7 +128,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>280</y>
+      <y>350</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -135,7 +141,7 @@
     <property name="geometry">
      <rect>
       <x>290</x>
-      <y>70</y>
+      <y>140</y>
       <width>131</width>
       <height>17</height>
      </rect>
@@ -151,7 +157,7 @@
     <property name="geometry">
      <rect>
       <x>290</x>
-      <y>40</y>
+      <y>110</y>
       <width>131</width>
       <height>17</height>
      </rect>
@@ -166,13 +172,36 @@
      <string notr="true">buttonGroup</string>
     </attribute>
    </widget>
+   <widget class="QTabWidget" name="tabWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>0</y>
+      <width>331</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <widget class="QWidget" name="tab">
+     <attribute name="title">
+      <string>Encryption</string>
+     </attribute>
+    </widget>
+    <widget class="QWidget" name="tab_2">
+     <attribute name="title">
+      <string>Decryption</string>
+     </attribute>
+    </widget>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>425</width>
+     <width>723</width>
      <height>21</height>
     </rect>
    </property>

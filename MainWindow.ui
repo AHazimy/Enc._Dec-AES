@@ -85,6 +85,9 @@
     <property name="text">
      <string>Encrypt</string>
     </property>
+    <attribute name="buttonGroup">
+     <string notr="true">buttonGroup_2</string>
+    </attribute>
    </widget>
    <widget class="QRadioButton" name="rb_decrypt">
     <property name="geometry">
@@ -98,6 +101,9 @@
     <property name="text">
      <string>Decrypt</string>
     </property>
+    <attribute name="buttonGroup">
+     <string notr="true">buttonGroup_2</string>
+    </attribute>
    </widget>
    <widget class="QLineEdit" name="lineEdit_password">
     <property name="geometry">
@@ -125,8 +131,8 @@
    <widget class="QRadioButton" name="rb_folder">
     <property name="geometry">
      <rect>
-      <x>300</x>
-      <y>30</y>
+      <x>290</x>
+      <y>70</y>
       <width>131</width>
       <height>17</height>
      </rect>
@@ -134,12 +140,15 @@
     <property name="text">
      <string>Folder Encryption</string>
     </property>
+    <attribute name="buttonGroup">
+     <string notr="true">buttonGroup</string>
+    </attribute>
    </widget>
    <widget class="QRadioButton" name="rb_file">
     <property name="geometry">
      <rect>
-      <x>300</x>
-      <y>60</y>
+      <x>290</x>
+      <y>40</y>
       <width>131</width>
       <height>17</height>
      </rect>
@@ -147,6 +156,12 @@
     <property name="text">
      <string>File Encryption</string>
     </property>
+    <property name="checked">
+     <bool>true</bool>
+    </property>
+    <attribute name="buttonGroup">
+     <string notr="true">buttonGroup</string>
+    </attribute>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -163,4 +178,8 @@
  </widget>
  <resources/>
  <connections/>
+ <buttongroups>
+  <buttongroup name="buttonGroup"/>
+  <buttongroup name="buttonGroup_2"/>
+ </buttongroups>
 </ui>

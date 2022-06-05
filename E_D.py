@@ -6,9 +6,10 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from hashlib import md5
 from Cryptodome.Cipher import AES
-from os import urandom
+from os import urandom, remove
 from MainWindow import Ui_MainWindow
 import shutil
+import time
 
 
 
@@ -21,18 +22,26 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.btn_run.clicked.connect(lambda: self.choose_enc_dec(self.lineEdit_password.text(), self.lineEdit_source.text(), self.lineEdit_destination.text()))
         self.btn_test.clicked.connect(lambda: self.test(self.lineEdit_destination.text(), self.lineEdit_source.text()))
         
-    def test(self, output, input):
-        shutil.make_archive(output, 'zip', input)
+    def compress_folder(self, output, input):
+        if self.rb_encrypt.isChecked():
+            shutil.make_archive(output, 'zip', input)
+        else:
+            shutil.unpack_archive(input, output)
+
+        
           
     def browse(self, line_edit, status):
         if status == "src":
-            filename=QFileDialog.getOpenFileName(self, 'Open File', '', '')
-            line_edit.setText(filename[0])
+            if self.rb_file.isChecked():
+                filename=QFileDialog.getOpenFileName(self, 'Open File', '', '')
+                line_edit.setText(filename[0])
+            else:
+                dirName=QFileDialog.getExistingDirectory(None, 'Select a folder:', 'C:\\',QFileDialog.ShowDirsOnly)
+                line_edit.setText(dirName)
         elif status == "dest":
             filename=QFileDialog.getSaveFileName(self, 'Save File', '', '')
             line_edit.setText(filename[0])
-        # dirName=QFileDialog.getExistingDirectory(None, 'Select a folder:', 'C:\\',QFileDialog.ShowDirsOnly)
-        # line_edit.setText(dirName)
+
 
     def encrypt(self, in_file, out_file, password, key_length=32):
         global bs
@@ -86,12 +95,22 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.decrypt(in_file, out_file, password)
             
     def choose_enc_dec(self, password, src_path,dest_path):
-        if self.rb_encrypt.isChecked():
-            self.run_enc(password, src_path,dest_path)
-        elif self.rb_decrypt.isChecked():
-            self.run_dec(password, src_path,dest_path)
-            
-            
+        if self.rb_file.isChecked():
+            if self.rb_encrypt.isChecked():
+                self.run_enc(password, src_path,dest_path)
+            elif self.rb_decrypt.isChecked():
+                self.run_dec(password, src_path,dest_path)
+        else:
+            if self.rb_encrypt.isChecked():
+                self.compress_folder('Temp/compressed', src_path)
+                time.sleep(2)
+                self.run_enc(password, 'Temp/compressed.zip',dest_path)
+                remove("Temp/compressed.zip")
+            else:
+                self.run_dec(password, src_path,'Temp/compressed.zip')
+                self.compress_folder(dest_path, 'Temp/compressed.zip')
+                remove("Temp/compressed.zip")
+                
 app=QApplication([])
 window=MainWindow()
 window.show()

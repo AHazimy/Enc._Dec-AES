@@ -1,5 +1,6 @@
-"""1. Ability to Encrypt and Decrypt Directory"""
+"""DONE===>1. Ability to Encrypt and Decrypt Directory"""
 """DONE===>2. Ability to Encrypt and Decrypt Files"""
+"""3. Fix after decrypt a folder to make his type as folder, beacuse he still unknown type"""
 
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *

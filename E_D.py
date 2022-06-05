@@ -102,6 +102,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             elif self.rb_decrypt.isChecked():
                 self.run_dec(password, src_path,dest_path)
         else:
+            #I should to delete the encrypted folder after decrypting it
+            #if i want
             if self.rb_encrypt.isChecked():
                 self.compress_folder('Temp/compressed', src_path)
                 # time.sleep(2)

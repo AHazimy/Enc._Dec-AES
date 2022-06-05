@@ -34,6 +34,7 @@ class Ui_MainWindow(object):
         self.btn_run.setObjectName("btn_run")
         self.rb_encrypt = QtWidgets.QRadioButton(self.centralwidget)
         self.rb_encrypt.setGeometry(QtCore.QRect(30, 160, 82, 17))
+        self.rb_encrypt.setChecked(True)
         self.rb_encrypt.setObjectName("rb_encrypt")
         self.buttonGroup_2 = QtWidgets.QButtonGroup(MainWindow)
         self.buttonGroup_2.setObjectName("buttonGroup_2")

@@ -85,6 +85,9 @@
     <property name="text">
      <string>Encrypt</string>
     </property>
+    <property name="checked">
+     <bool>true</bool>
+    </property>
     <attribute name="buttonGroup">
      <string notr="true">buttonGroup_2</string>
     </attribute>

@@ -1,6 +1,6 @@
 """DONE===>1. Ability to Encrypt and Decrypt Directory"""
 """DONE===>2. Ability to Encrypt and Decrypt Files"""
-"""3. Fix after decrypt a folder to make his type as folder, beacuse he still unknown type"""
+"""Fixing3. Fix after decrypt a folder to make his type as folder, beacuse he still unknown type"""
 
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
@@ -30,10 +30,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             shutil.unpack_archive(input, output)
 
         
-          
+    #My work is here      
     def browse(self, line_edit, status):
         if status == "src":
-            if self.rb_file.isChecked():
+            if self.rb_file.isChecked() or (self.rb_folder.isChecked() and self.rb_decrypt.isChecked()):
                 filename=QFileDialog.getOpenFileName(self, 'Open File', '', '')
                 line_edit.setText(filename[0])
             else:
@@ -104,7 +104,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             if self.rb_encrypt.isChecked():
                 self.compress_folder('Temp/compressed', src_path)
-                time.sleep(2)
+                # time.sleep(2)
                 self.run_enc(password, 'Temp/compressed.zip',dest_path)
                 remove("Temp/compressed.zip")
             else:

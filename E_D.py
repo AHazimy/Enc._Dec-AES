@@ -19,6 +19,7 @@ from os.path import basename
 import zipfile
 from pathlib import Path
 from datetime import datetime as dt
+from Cryptodome.Util.Padding import pad
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -122,7 +123,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.run_dec(password, src_path,'Temp/compressed.zip')
                 with ZipFile('Temp/compressed.zip', 'r') as zip:
                     content=zip.namelist()
-                    zip.extractall(dest_path)
+                    for to_unzip in content:
+                        zip.extract(to_unzip, dest_path)
                     print(content[0].split("/")[-1])
                 remove("Temp/compressed.zip")
                 

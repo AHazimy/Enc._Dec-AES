@@ -9,10 +9,13 @@ from PyQt5.QtWidgets import *
 from hashlib import md5
 from Cryptodome.Cipher import AES
 from os import urandom, remove
+import os
 from MainWindow import Ui_MainWindow
 import shutil
 from zipfile import ZipFile
 from os.path import basename
+import zipfile
+from pathlib import Path
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -27,6 +30,25 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def compress_folder(self, output, input):
         if self.rb_encrypt.isChecked():
             shutil.make_archive(output, 'zip', input)
+            # def _walk(path: Path):
+            #     all_files = []
+            #     for x in path.iterdir():
+            #         if x.is_dir():
+            #             all_files.extend(_walk(x))
+            #         else:
+            #             all_files.append(x)
+            #     return all_files
+
+
+            # def zip_files(path: Path, archive_name: str):
+            #     all_files = _walk(path)
+            #     with zipfile.ZipFile(f'{archive_name}', 'w', zipfile.ZIP_DEFLATED) as zipf:
+            #         for f in all_files:
+            #             zipf.write(f)
+            #         zipf.close()
+
+
+            # zip_files(input, output)
         else:
             shutil.unpack_archive(input, output)
 
@@ -127,8 +149,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if self.tabWidget.currentIndex() == 0: 
                 self.compress_folder('Temp/compressed', src_path)
                 # time.sleep(2)
-                self.run_enc(password, 'Temp/compressed.zip',dest_path)
-                remove("Temp/compressed.zip")
+                Path(dest_path+"\Decr").mkdir(parents=True, exist_ok=True)
+                enc_folder_name=dest_path+str("/"+src_path.split("/")[-1])
+                self.run_enc(password, 'Temp\compressed.zip',dest_path+"\Decr\Enc")
+                remove("Temp\compressed.zip")
                 
                 
             else:

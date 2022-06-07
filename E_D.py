@@ -12,7 +12,7 @@ from os import urandom, remove
 from MainWindow import Ui_MainWindow
 import shutil
 from zipfile import ZipFile
-
+from os.path import basename
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -107,7 +107,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             
             if self.tabWidget.currentIndex() == 0: 
                 with ZipFile("Temp/compressed.zip", "w") as newzip:
-                    newzip.write(src_path)
+                    newzip.write(src_path,basename(src_path))
                 self.run_enc(password, 'Temp/compressed.zip',dest_path+str("/"+src_path.split("/")[-1].split(".")[0]))
                 remove("Temp/compressed.zip")
                 
@@ -116,7 +116,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.run_dec(password, src_path,'Temp/compressed.zip')
                 with ZipFile('Temp/compressed.zip', 'r') as zip:
                     content=zip.namelist()
-                    zip.extractall(dest_path+"/"+str(content[0].split("/")[-1]))
+                    zip.extractall(dest_path)
                     print(content[0].split("/")[-1])
                 remove("Temp/compressed.zip")
                 

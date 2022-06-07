@@ -1,7 +1,9 @@
 """DONE===>1. Ability to Encrypt and Decrypt Directory"""
 """DONE===>2. Ability to Encrypt and Decrypt Files"""
-"""######### Big Bug ###########3. Fix The path or the name or the type for the decrypted files and folders
-If i can save it without full path in the zip file the problem will be solved"""
+"""DONE===>######### Big Bug ###########3. Fix The path or the name or the type for the decrypted files and folders"""
+"""3. Should check if the password is correct, if not ===>QMessageBox"""
+"""4. Fix the design"""
+"""5. Fix imported Libraries"""
 
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
@@ -16,6 +18,7 @@ from zipfile import ZipFile
 from os.path import basename
 import zipfile
 from pathlib import Path
+from datetime import datetime as dt
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -30,25 +33,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def compress_folder(self, output, input):
         if self.rb_encrypt.isChecked():
             shutil.make_archive(output, 'zip', input)
-            # def _walk(path: Path):
-            #     all_files = []
-            #     for x in path.iterdir():
-            #         if x.is_dir():
-            #             all_files.extend(_walk(x))
-            #         else:
-            #             all_files.append(x)
-            #     return all_files
-
-
-            # def zip_files(path: Path, archive_name: str):
-            #     all_files = _walk(path)
-            #     with zipfile.ZipFile(f'{archive_name}', 'w', zipfile.ZIP_DEFLATED) as zipf:
-            #         for f in all_files:
-            #             zipf.write(f)
-            #         zipf.close()
-
-
-            # zip_files(input, output)
         else:
             shutil.unpack_archive(input, output)
 
@@ -149,18 +133,34 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if self.tabWidget.currentIndex() == 0: 
                 self.compress_folder('Temp/compressed', src_path)
                 # time.sleep(2)
-                Path(dest_path+"\Decr").mkdir(parents=True, exist_ok=True)
-                enc_folder_name=dest_path+str("/"+src_path.split("/")[-1])
-                self.run_enc(password, 'Temp\compressed.zip',dest_path+"\Decr\Enc")
+                CHECK_FOLDER = os.path.isdir(dest_path+"\Encrypted")
+                if not CHECK_FOLDER:
+                    Path(dest_path+"\Encrypted").mkdir(parents=True, exist_ok=True)
+                    self.run_enc(password, 'Temp\compressed.zip',dest_path+"\Encrypted\Encrypted_DATA")
+                else:
+                    QMessageBox.critical(self, "Warning", "Your directory has already contains 'Encrypted' folder!")
+                # enc_folder_name=dest_path+str("/"+src_path.split("/")[-1])
                 remove("Temp\compressed.zip")
                 
                 
             else:
                 self.run_dec(password, src_path,'Temp/compressed.zip')
-                with ZipFile('Temp/compressed.zip', 'r') as zip:
-                    content=zip.namelist()
+                # with ZipFile('Temp/compressed.zip', 'r') as zip:
+                #     content=zip.namelist()
                     # zip.extractall(dest_path+str(content[0]))
-                self.compress_folder(dest_path+str(content[0]), 'Temp/compressed.zip')
+                # self.compress_folder(dest_path+str(content[0]), 'Temp/compressed.zip')
+                CHECK_FOLDER = os.path.isdir(dest_path+"\Decrypted")
+                if not CHECK_FOLDER:
+                    Path(dest_path+"\Decrypted").mkdir(parents=True, exist_ok=True)
+                    with ZipFile('Temp/compressed.zip', 'r') as zip:
+                        content=zip.namelist()
+                        zip.extractall(dest_path+"\Decrypted")
+                else:
+                    # Path(dest_path+"\Decrypted+").mkdir(parents=True, exist_ok=True)
+                    QMessageBox.critical(self, "Warning", "Your directory has already contains 'Decrypted' folder!")
+                # Path(dest_path+"\Decrypted").mkdir(parents=True, exist_ok=True)
+                
+                    # print(content[0].split("/")[-1])
                 remove("Temp/compressed.zip")
                 
 app=QApplication([])

@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(442, 480)
+        MainWindow.resize(442, 393)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.lineEdit_source = QtWidgets.QLineEdit(self.centralwidget)
@@ -26,8 +26,12 @@ class Ui_MainWindow(object):
         self.lineEdit_destination.setGeometry(QtCore.QRect(22, 170, 151, 20))
         self.lineEdit_destination.setObjectName("lineEdit_destination")
         self.btn_browse_source = QtWidgets.QPushButton(self.centralwidget)
-        self.btn_browse_source.setGeometry(QtCore.QRect(190, 100, 75, 23))
+        self.btn_browse_source.setGeometry(QtCore.QRect(190, 100, 91, 23))
         self.btn_browse_source.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/newPrefix/img/folder.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        self.btn_browse_source.setIcon(icon)
+        self.btn_browse_source.setCheckable(False)
         self.btn_browse_source.setObjectName("btn_browse_source")
         self.btn_browse_destination = QtWidgets.QPushButton(self.centralwidget)
         self.btn_browse_destination.setGeometry(QtCore.QRect(190, 170, 75, 23))
@@ -39,10 +43,6 @@ class Ui_MainWindow(object):
         self.btn_run.setObjectName("btn_run")
         self.lineEdit_password = QtWidgets.QLineEdit(self.centralwidget)
         self.lineEdit_password.setGeometry(QtCore.QRect(20, 270, 241, 20))
-        font = QtGui.QFont()
-        font.setKerning(False)
-        self.lineEdit_password.setFont(font)
-        self.lineEdit_password.setEchoMode(QtWidgets.QLineEdit.Password)
         self.lineEdit_password.setObjectName("lineEdit_password")
         self.btn_test = QtWidgets.QPushButton(self.centralwidget)
         self.btn_test.setGeometry(QtCore.QRect(20, 350, 75, 23))
@@ -85,7 +85,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "AES_files"))
-        self.btn_browse_source.setText(_translate("MainWindow", "Browse"))
+        self.btn_browse_source.setText(_translate("MainWindow", "Add Folder"))
         self.btn_browse_destination.setText(_translate("MainWindow", "Browse"))
         self.btn_run.setText(_translate("MainWindow", "Run"))
         self.btn_test.setText(_translate("MainWindow", "test"))
@@ -93,6 +93,7 @@ class Ui_MainWindow(object):
         self.rb_file.setText(_translate("MainWindow", "File Encryption"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "Encryption"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Decryption"))
+import icons_rc
 
 
 if __name__ == "__main__":

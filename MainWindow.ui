@@ -97,6 +97,14 @@
       <height>20</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <kerning>false</kerning>
+     </font>
+    </property>
+    <property name="echoMode">
+     <enum>QLineEdit::Password</enum>
+    </property>
    </widget>
    <widget class="QPushButton" name="btn_test">
     <property name="geometry">

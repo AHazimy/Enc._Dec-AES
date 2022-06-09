@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>723</width>
+    <width>442</width>
     <height>480</height>
    </rect>
   </property>
@@ -49,6 +49,9 @@
       <height>23</height>
      </rect>
     </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
     <property name="text">
      <string>Browse</string>
     </property>
@@ -61,6 +64,9 @@
       <width>75</width>
       <height>23</height>
      </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="text">
      <string>Browse</string>
@@ -75,44 +81,12 @@
       <height>23</height>
      </rect>
     </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
     <property name="text">
      <string>Run</string>
     </property>
-   </widget>
-   <widget class="QRadioButton" name="rb_encrypt">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>230</y>
-      <width>82</width>
-      <height>17</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Encrypt</string>
-    </property>
-    <property name="checked">
-     <bool>true</bool>
-    </property>
-    <attribute name="buttonGroup">
-     <string notr="true">buttonGroup_2</string>
-    </attribute>
-   </widget>
-   <widget class="QRadioButton" name="rb_decrypt">
-    <property name="geometry">
-     <rect>
-      <x>190</x>
-      <y>230</y>
-      <width>82</width>
-      <height>17</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Decrypt</string>
-    </property>
-    <attribute name="buttonGroup">
-     <string notr="true">buttonGroup_2</string>
-    </attribute>
    </widget>
    <widget class="QLineEdit" name="lineEdit_password">
     <property name="geometry">
@@ -146,6 +120,9 @@
       <height>17</height>
      </rect>
     </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
     <property name="text">
      <string>Folder Encryption</string>
     </property>
@@ -161,6 +138,9 @@
       <width>131</width>
       <height>17</height>
      </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="text">
      <string>File Encryption</string>
@@ -201,7 +181,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>723</width>
+     <width>442</width>
      <height>21</height>
     </rect>
    </property>

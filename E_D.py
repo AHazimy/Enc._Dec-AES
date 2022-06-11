@@ -39,7 +39,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         
     #My work is here      
-    def browse(self, line_edit, status):
+    def browse(self, line_edit, status, btn):
+        if btn=='folder':
+            condition_1=None
+            condition_2=None
+            condition_3=(self.tabWidget.currentIndex()==1)
+        elif btn=='file':
+            condition_1=(self.tabWidget.currentIndex()==1)
+            condition_2=(self.tabWidget.currentIndex()==0)
+            condition_3=None
         if status == "src":
             if (self.rb_file.isChecked() and self.tabWidget.currentIndex()==1) or (self.rb_folder.isChecked() and self.tabWidget.currentIndex()==1) or (self.rb_file.isChecked() and self.tabWidget.currentIndex()==0):
                 filename=QFileDialog.getOpenFileName(self, 'Open File', '', '')
@@ -109,7 +117,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.decrypt(in_file, out_file, password)
             
     def choose_enc_dec(self, password, src_path,dest_path):
-        if self.rb_file.isChecked():
+        if os.path.isfile(src_path):#self.rb_file.isChecked():
             #if self.rb_encrypt.isChecked():
             
             if self.tabWidget.currentIndex() == 0: 
@@ -128,7 +136,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     print(content[0].split("/")[-1])
                 remove("Temp/compressed.zip")
                 
-        else:
+        elif os.path.isdir(src_path):
             #I should to delete the encrypted folder after decrypting it
             #if i want
             # if self.rb_encrypt.isChecked():

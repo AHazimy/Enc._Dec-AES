@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="newPrefix">
+    <file>img/kisspng-lock-computer-icons-clip-art-lock-5aca2fd1ceb269.0955582915231999538466.png</file>
+    <file>img/unlock-16.png</file>
     <file>img/file.png</file>
     <file>img/folder.png</file>
   </qresource>

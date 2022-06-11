@@ -1,4 +1,4 @@
-"""DONE===>1. Ability to Encrypt and Decrypt Directory"""
+"""DONE===>1. Ability to Encrypt and Decrypt Directory"""Kite requires the Kite Copilot desktop application to provide c
 """DONE===>2. Ability to Encrypt and Decrypt Files"""
 """DONE===>######### Big Bug ###########3. Fix The path or the name or the type for the decrypted files and folders"""
 """3. Should check if the password is correct, if not ===>QMessageBox"""

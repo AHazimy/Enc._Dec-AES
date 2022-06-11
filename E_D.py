@@ -1,9 +1,11 @@
-"""DONE===>1. Ability to Encrypt and Decrypt Directory"""Kite requires the Kite Copilot desktop application to provide c
+"""DONE===>1. Ability to Encrypt and Decrypt Directory"""
 """DONE===>2. Ability to Encrypt and Decrypt Files"""
 """DONE===>######### Big Bug ###########3. Fix The path or the name or the type for the decrypted files and folders"""
 """3. Should check if the password is correct, if not ===>QMessageBox"""
-"""4. Fix the design"""
+"""DONE===>4. Fix the design"""
 """5. Fix imported Libraries"""
+"""6. Merge compress_folder() with the main function of enc_dec"""
+"""7. Be careful about just one button to enc and dec, so if we clicked on this button the two functions will run, and thats a big mistake"""
 
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
@@ -26,10 +28,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
         self.setupUi(self)
-        self.btn_browse_source.clicked.connect(lambda: self.browse(self.lineEdit_source, "src"))
-        self.btn_browse_destination.clicked.connect(lambda: self.browse(self.lineEdit_destination, "dest"))
-        self.btn_run.clicked.connect(lambda: self.choose_enc_dec(self.lineEdit_password.text(), self.lineEdit_source.text(), self.lineEdit_destination.text()))
-        self.btn_test.clicked.connect(lambda: self.test(self.lineEdit_destination.text(), self.lineEdit_source.text()))
+        self.btn_browse_source_file_enc.clicked.connect(lambda: self.browse(self.lineEdit_source, "file"))
+        self.btn_browse_source_fldr_enc.clicked.connect(lambda: self.browse(self.lineEdit_source, "fldr"))
+        self.btn_browse_source_dec.clicked.connect(lambda: self.browse(self.lineEdit_source_dec, "file"))
+        self.btn_browse_destination.clicked.connect(lambda: self.browse(self.lineEdit_destination, "fldr"))
+        self.btn_browse_destination_dec.clicked.connect(lambda: self.browse(self.lineEdit_destination_dec, "fldr"))
+        
+        self.btn_run.clicked.connect(lambda: self.choose_enc_dec(self.lineEdit_password.text(), self.lineEdit_password_confirm.text(), self.lineEdit_source.text(), self.lineEdit_destination.text()))
+        # self.btn_test.clicked.connect(lambda: self.test(self.lineEdit_destination.text(), self.lineEdit_source.text()))
         
     def compress_folder(self, output, input):
         if self.rb_encrypt.isChecked():
@@ -38,30 +44,40 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             shutil.unpack_archive(input, output)
 
         
+    def browse(self, line_edit, typ):
+        if typ == 'fldr':
+            dirName=QFileDialog.getExistingDirectory(None, 'Select a folder:', 'C:\\',QFileDialog.ShowDirsOnly)
+            line_edit.setText(dirName)
+        elif typ == 'file':
+            filename=QFileDialog.getOpenFileName(self, 'Open File', '', '')
+            line_edit.setText(filename[0])
+
+        
+        
     #My work is here      
-    def browse(self, line_edit, status, btn):
-        if btn=='folder':
-            condition_1=None
-            condition_2=None
-            condition_3=(self.tabWidget.currentIndex()==1)
-        elif btn=='file':
-            condition_1=(self.tabWidget.currentIndex()==1)
-            condition_2=(self.tabWidget.currentIndex()==0)
-            condition_3=None
-        if status == "src":
-            if (self.rb_file.isChecked() and self.tabWidget.currentIndex()==1) or (self.rb_folder.isChecked() and self.tabWidget.currentIndex()==1) or (self.rb_file.isChecked() and self.tabWidget.currentIndex()==0):
-                filename=QFileDialog.getOpenFileName(self, 'Open File', '', '')
-                line_edit.setText(filename[0])
-            else:
-                dirName=QFileDialog.getExistingDirectory(None, 'Select a folder:', 'C:\\',QFileDialog.ShowDirsOnly)
-                line_edit.setText(dirName)
-        elif status == "dest":
-            # if (self.rb_file.isChecked() and self.tabWidget.currentIndex()==1) or (self.rb_folder.isChecked() and self.tabWidget.currentIndex()==1):
-            filename=QFileDialog.getExistingDirectory(None, 'Select a folder:', 'C:\\',QFileDialog.ShowDirsOnly)
-            line_edit.setText(filename)
-            # else:
-            #     filename=QFileDialog.getSaveFileName(self, 'Save File', '', '')
-            #     line_edit.setText(filename[0])
+    # def browse(self, line_edit, status, btn):
+    #     if btn=='folder':
+    #         condition_1=None
+    #         condition_2=None
+    #         condition_3=(self.tabWidget.currentIndex()==1)
+    #     elif btn=='file':
+    #         condition_1=(self.tabWidget.currentIndex()==1)
+    #         condition_2=(self.tabWidget.currentIndex()==0)
+    #         condition_3=None
+    #     if status == "src":
+    #         if (self.rb_file.isChecked() and self.tabWidget.currentIndex()==1) or (self.rb_folder.isChecked() and self.tabWidget.currentIndex()==1) or (self.rb_file.isChecked() and self.tabWidget.currentIndex()==0):
+    #             filename=QFileDialog.getOpenFileName(self, 'Open File', '', '')
+    #             line_edit.setText(filename[0])
+    #         else:
+    #             dirName=QFileDialog.getExistingDirectory(None, 'Select a folder:', 'C:\\',QFileDialog.ShowDirsOnly)
+    #             line_edit.setText(dirName)
+    #     elif status == "dest":
+    #         # if (self.rb_file.isChecked() and self.tabWidget.currentIndex()==1) or (self.rb_folder.isChecked() and self.tabWidget.currentIndex()==1):
+    #         filename=QFileDialog.getExistingDirectory(None, 'Select a folder:', 'C:\\',QFileDialog.ShowDirsOnly)
+    #         line_edit.setText(filename)
+    #         # else:
+    #         #     filename=QFileDialog.getSaveFileName(self, 'Save File', '', '')
+    #         #     line_edit.setText(filename[0])
                 
 
 
@@ -93,7 +109,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         next_chunk = ''
         finished = False
         while not finished:
-            chunk, next_chunk = next_chunk, cipher.decrypt(in_file.read(1024 * bs))
+            chunk, next_chunk = next_chunk, cipher.decrypt(pad(in_file.read(1024 * bs),16))
             if len(next_chunk) == 0:
                 padding_length = chunk[-1]
                 chunk = chunk[:-padding_length]
@@ -116,15 +132,26 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         with open(src_path, 'rb') as in_file, open(dest_path, 'wb') as out_file:
             self.decrypt(in_file, out_file, password)
             
-    def choose_enc_dec(self, password, src_path,dest_path):
+    def confirm_pass(self, line_edit1, line_edit2):
+        confirmed=None
+        if md5(str.encode(line_edit1)).hexdigest() == md5(str.encode(line_edit2)).hexdigest():
+            confirmed=True
+        else:
+            confirmed=False
+        return confirmed 
+       
+    def choose_enc_dec(self, password, confirm_pass, src_path, dest_path):
         if os.path.isfile(src_path):#self.rb_file.isChecked():
             #if self.rb_encrypt.isChecked():
             
             if self.tabWidget.currentIndex() == 0: 
-                with ZipFile("Temp/compressed.zip", "w") as newzip:
-                    newzip.write(src_path,basename(src_path))
-                self.run_enc(password, 'Temp/compressed.zip',dest_path+str("/"+src_path.split("/")[-1].split(".")[0]))
-                remove("Temp/compressed.zip")
+                if self.confirm_pass(password, confirm_pass):
+                    with ZipFile("Temp/compressed.zip", "w") as newzip:
+                        newzip.write(src_path,basename(src_path))
+                    self.run_enc(password, 'Temp/compressed.zip',dest_path+str("/"+src_path.split("/")[-1].split(".")[0]))
+                    remove("Temp/compressed.zip")
+                else:
+                    QMessageBox.warning(self, "Attention", "Your passwords must be the same!")
                 
             #elif self.rb_decrypt.isChecked():
             elif self.tabWidget.currentIndex() == 1:
@@ -141,17 +168,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             #if i want
             # if self.rb_encrypt.isChecked():
             if self.tabWidget.currentIndex() == 0: 
-                self.compress_folder('Temp/compressed', src_path)
-                # time.sleep(2)
-                CHECK_FOLDER = os.path.isdir(dest_path+"\Encrypted")
-                if not CHECK_FOLDER:
-                    Path(dest_path+"\Encrypted").mkdir(parents=True, exist_ok=True)
-                    self.run_enc(password, 'Temp\compressed.zip',dest_path+"\Encrypted\Encrypted_DATA")
+                if self.confirm_pass(password, confirm_pass):
+                    self.compress_folder('Temp/compressed', src_path)
+                    # time.sleep(2)
+                    CHECK_FOLDER = os.path.isdir(dest_path+"\Encrypted")
+                    if not CHECK_FOLDER:
+                        Path(dest_path+"\Encrypted").mkdir(parents=True, exist_ok=True)
+                        self.run_enc(password, 'Temp\compressed.zip',dest_path+"\Encrypted\Encrypted_DATA")
+                    else:
+                        QMessageBox.critical(self, "Warning", "Your directory has already contains 'Encrypted' folder!")
+                    # enc_folder_name=dest_path+str("/"+src_path.split("/")[-1])
+                    remove("Temp\compressed.zip")
                 else:
-                    QMessageBox.critical(self, "Warning", "Your directory has already contains 'Encrypted' folder!")
-                # enc_folder_name=dest_path+str("/"+src_path.split("/")[-1])
-                remove("Temp\compressed.zip")
-                
+                    QMessageBox.warning(self, "Attention", "Your passwords must be the same!")
                 
             else:
                 self.run_dec(password, src_path,'Temp/compressed.zip')

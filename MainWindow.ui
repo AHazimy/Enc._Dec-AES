@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>374</width>
-    <height>352</height>
+    <height>361</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,140 +19,254 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
-     <widget class="QTabWidget" name="tabWidget">
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
-      <property name="tabPosition">
-       <enum>QTabWidget::North</enum>
-      </property>
-      <property name="tabShape">
-       <enum>QTabWidget::Rounded</enum>
-      </property>
-      <property name="currentIndex">
-       <number>0</number>
-      </property>
-      <property name="iconSize">
-       <size>
-        <width>16</width>
-        <height>16</height>
-       </size>
-      </property>
-      <property name="elideMode">
-       <enum>Qt::ElideNone</enum>
-      </property>
-      <property name="documentMode">
-       <bool>false</bool>
-      </property>
-      <property name="tabsClosable">
-       <bool>false</bool>
-      </property>
-      <property name="movable">
-       <bool>false</bool>
-      </property>
-      <property name="tabBarAutoHide">
-       <bool>false</bool>
-      </property>
-      <widget class="QWidget" name="tab">
-       <attribute name="icon">
-        <iconset>
-         <normalon>:/newPrefix/img/kisspng-lock-computer-icons-clip-art-lock-5aca2fd1ceb269.0955582915231999538466.png</normalon>
-        </iconset>
-       </attribute>
-       <attribute name="title">
-        <string>Encryption</string>
-       </attribute>
-       <widget class="QLineEdit" name="lineEdit_password_confirm">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>170</y>
-          <width>241</width>
-          <height>20</height>
-         </rect>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QTabWidget" name="tabWidget">
+        <property name="styleSheet">
+         <string notr="true"/>
         </property>
-        <property name="echoMode">
-         <enum>QLineEdit::Password</enum>
+        <property name="tabPosition">
+         <enum>QTabWidget::North</enum>
         </property>
-       </widget>
-       <widget class="QPushButton" name="btn_browse_destination">
-        <property name="geometry">
-         <rect>
-          <x>220</x>
-          <y>80</y>
-          <width>91</width>
-          <height>23</height>
-         </rect>
+        <property name="tabShape">
+         <enum>QTabWidget::Rounded</enum>
         </property>
-        <property name="cursor">
-         <cursorShape>PointingHandCursor</cursorShape>
+        <property name="currentIndex">
+         <number>0</number>
         </property>
-        <property name="text">
-         <string>Results</string>
+        <property name="iconSize">
+         <size>
+          <width>16</width>
+          <height>16</height>
+         </size>
         </property>
-       </widget>
-       <widget class="QPushButton" name="btn_browse_source_2">
-        <property name="geometry">
-         <rect>
-          <x>220</x>
-          <y>10</y>
-          <width>91</width>
-          <height>23</height>
-         </rect>
+        <property name="elideMode">
+         <enum>Qt::ElideNone</enum>
         </property>
-        <property name="cursor">
-         <cursorShape>PointingHandCursor</cursorShape>
-        </property>
-        <property name="text">
-         <string>Add File</string>
-        </property>
-        <property name="icon">
-         <iconset>
-          <normalon>:/newPrefix/img/file.png</normalon>
-         </iconset>
-        </property>
-        <property name="checkable">
+        <property name="documentMode">
          <bool>false</bool>
         </property>
-        <property name="flat">
-         <bool>true</bool>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="lineEdit_destination">
-        <property name="enabled">
+        <property name="tabsClosable">
          <bool>false</bool>
         </property>
-        <property name="geometry">
-         <rect>
-          <x>22</x>
-          <y>80</y>
-          <width>151</width>
-          <height>20</height>
-         </rect>
+        <property name="movable">
+         <bool>false</bool>
         </property>
+        <property name="tabBarAutoHide">
+         <bool>false</bool>
+        </property>
+        <widget class="QWidget" name="tab">
+         <attribute name="icon">
+          <iconset>
+           <normalon>:/newPrefix/img/kisspng-lock-computer-icons-clip-art-lock-5aca2fd1ceb269.0955582915231999538466.png</normalon>
+          </iconset>
+         </attribute>
+         <attribute name="title">
+          <string>Encryption</string>
+         </attribute>
+         <widget class="QLineEdit" name="lineEdit_password_confirm">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>170</y>
+            <width>241</width>
+            <height>20</height>
+           </rect>
+          </property>
+          <property name="echoMode">
+           <enum>QLineEdit::Password</enum>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="btn_browse_destination">
+          <property name="geometry">
+           <rect>
+            <x>220</x>
+            <y>80</y>
+            <width>91</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
+          <property name="text">
+           <string>Results</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="btn_browse_source_file_enc">
+          <property name="geometry">
+           <rect>
+            <x>220</x>
+            <y>10</y>
+            <width>91</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
+          <property name="text">
+           <string>Add File</string>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normalon>:/newPrefix/img/file.png</normalon>
+           </iconset>
+          </property>
+          <property name="checkable">
+           <bool>false</bool>
+          </property>
+          <property name="flat">
+           <bool>true</bool>
+          </property>
+         </widget>
+         <widget class="QLineEdit" name="lineEdit_destination">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="geometry">
+           <rect>
+            <x>22</x>
+            <y>80</y>
+            <width>151</width>
+            <height>20</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QLineEdit" name="lineEdit_password">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>140</y>
+            <width>241</width>
+            <height>20</height>
+           </rect>
+          </property>
+          <property name="echoMode">
+           <enum>QLineEdit::Password</enum>
+          </property>
+         </widget>
+         <widget class="QLineEdit" name="lineEdit_source">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="geometry">
+           <rect>
+            <x>22</x>
+            <y>10</y>
+            <width>151</width>
+            <height>20</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="btn_browse_source_fldr_enc">
+          <property name="geometry">
+           <rect>
+            <x>220</x>
+            <y>40</y>
+            <width>91</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
+          <property name="text">
+           <string>Add Folder</string>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normalon>:/newPrefix/img/folder.png</normalon>
+           </iconset>
+          </property>
+          <property name="checkable">
+           <bool>false</bool>
+          </property>
+          <property name="flat">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </widget>
+        <widget class="QWidget" name="tab_2">
+         <attribute name="icon">
+          <iconset>
+           <normalon>:/newPrefix/img/unlock-16.png</normalon>
+          </iconset>
+         </attribute>
+         <attribute name="title">
+          <string>Decryption</string>
+         </attribute>
+         <layout class="QGridLayout" name="gridLayout_2">
+          <item row="0" column="0">
+           <layout class="QVBoxLayout" name="verticalLayout_2">
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout">
+              <item>
+               <widget class="QLineEdit" name="lineEdit_source_dec">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="btn_browse_source_dec">
+                <property name="cursor">
+                 <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="text">
+                 <string>Add File</string>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normalon>:/newPrefix/img/file.png</normalon>
+                 </iconset>
+                </property>
+                <property name="checkable">
+                 <bool>false</bool>
+                </property>
+                <property name="flat">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_2">
+              <item>
+               <widget class="QLineEdit" name="lineEdit_destination_dec">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="btn_browse_destination_dec">
+                <property name="cursor">
+                 <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="text">
+                 <string>Results</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="lineEdit_password_dec">
+              <property name="echoMode">
+               <enum>QLineEdit::Password</enum>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_password">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>140</y>
-          <width>241</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="echoMode">
-         <enum>QLineEdit::Password</enum>
-        </property>
-       </widget>
+      </item>
+      <item>
        <widget class="QPushButton" name="btn_run">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>220</y>
-          <width>241</width>
-          <height>23</height>
-         </rect>
-        </property>
         <property name="cursor">
          <cursorShape>PointingHandCursor</cursorShape>
         </property>
@@ -160,58 +274,8 @@
          <string>Run</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_source">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="geometry">
-         <rect>
-          <x>22</x>
-          <y>10</y>
-          <width>151</width>
-          <height>20</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="btn_browse_source">
-        <property name="geometry">
-         <rect>
-          <x>220</x>
-          <y>40</y>
-          <width>91</width>
-          <height>23</height>
-         </rect>
-        </property>
-        <property name="cursor">
-         <cursorShape>PointingHandCursor</cursorShape>
-        </property>
-        <property name="text">
-         <string>Add Folder</string>
-        </property>
-        <property name="icon">
-         <iconset>
-          <normalon>:/newPrefix/img/folder.png</normalon>
-         </iconset>
-        </property>
-        <property name="checkable">
-         <bool>false</bool>
-        </property>
-        <property name="flat">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </widget>
-      <widget class="QWidget" name="tab_2">
-       <attribute name="icon">
-        <iconset>
-         <normalon>:/newPrefix/img/unlock-16.png</normalon>
-        </iconset>
-       </attribute>
-       <attribute name="title">
-        <string>Decryption</string>
-       </attribute>
-      </widget>
-     </widget>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>

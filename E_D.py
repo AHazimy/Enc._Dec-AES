@@ -169,7 +169,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # if self.rb_encrypt.isChecked():
             if self.tabWidget.currentIndex() == 0: 
                 if self.confirm_pass(password, confirm_pass):
-                    self.compress_folder('Temp/compressed', src_path)
+                    #self.compress_folder('Temp/compressed', src_path)
+                    shutil.make_archive('Temp/compressed', 'zip',  src_path)
                     # time.sleep(2)
                     CHECK_FOLDER = os.path.isdir(dest_path+"\Encrypted")
                     if not CHECK_FOLDER:

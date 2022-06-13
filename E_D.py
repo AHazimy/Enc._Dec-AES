@@ -141,10 +141,73 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         return confirmed 
        
     def choose_enc_dec(self, password, confirm_pass, src_path, dest_path):
-        if os.path.isfile(src_path):#self.rb_file.isChecked():
-            #if self.rb_encrypt.isChecked():
+        # if os.path.isfile(src_path):#self.rb_file.isChecked():
+        #     #if self.rb_encrypt.isChecked():
             
-            if self.tabWidget.currentIndex() == 0: 
+        #     if self.tabWidget.currentIndex() == 0: 
+        #         if self.confirm_pass(password, confirm_pass):
+        #             with ZipFile("Temp/compressed.zip", "w") as newzip:
+        #                 newzip.write(src_path,basename(src_path))
+        #             self.run_enc(password, 'Temp/compressed.zip',dest_path+str("/"+src_path.split("/")[-1].split(".")[0]))
+        #             remove("Temp/compressed.zip")
+        #         else:
+        #             QMessageBox.warning(self, "Attention", "Your passwords must be the same!")
+                
+        #     #elif self.rb_decrypt.isChecked():
+        #     elif self.tabWidget.currentIndex() == 1:
+        #         self.run_dec(password, src_path,'Temp/compressed.zip')
+        #         with ZipFile('Temp/compressed.zip', 'r') as zip:
+        #             content=zip.namelist()
+        #             for to_unzip in content:
+        #                 zip.extract(to_unzip, dest_path)
+        #             print(content[0].split("/")[-1])
+        #         remove("Temp/compressed.zip")
+                
+        # elif os.path.isdir(src_path):
+        #     #I should to delete the encrypted folder after decrypting it
+        #     #if i want
+        #     # if self.rb_encrypt.isChecked():
+        #     if self.tabWidget.currentIndex() == 0: 
+        #         if self.confirm_pass(password, confirm_pass):
+        #             #self.compress_folder('Temp/compressed', src_path)
+        #             shutil.make_archive('Temp/compressed', 'zip',  src_path)
+        #             # time.sleep(2)
+        #             CHECK_FOLDER = os.path.isdir(dest_path+"\Encrypted")
+        #             if not CHECK_FOLDER:
+        #                 Path(dest_path+"\Encrypted").mkdir(parents=True, exist_ok=True)
+        #                 self.run_enc(password, 'Temp\compressed.zip',dest_path+"\Encrypted\Encrypted_DATA")
+        #             else:
+        #                 QMessageBox.critical(self, "Warning", "Your directory has already contains 'Encrypted' folder!")
+        #             # enc_folder_name=dest_path+str("/"+src_path.split("/")[-1])
+        #             remove("Temp\compressed.zip")
+        #         else:
+        #             QMessageBox.warning(self, "Attention", "Your passwords must be the same!")
+                
+        #     else:
+        #         self.run_dec(password, src_path,'Temp/compressed.zip')
+        #         # with ZipFile('Temp/compressed.zip', 'r') as zip:
+        #         #     content=zip.namelist()
+        #             # zip.extractall(dest_path+str(content[0]))
+        #         # self.compress_folder(dest_path+str(content[0]), 'Temp/compressed.zip')
+        #         CHECK_FOLDER = os.path.isdir(dest_path+"\Decrypted")
+        #         if not CHECK_FOLDER:
+        #             Path(dest_path+"\Decrypted").mkdir(parents=True, exist_ok=True)
+        #             with ZipFile('Temp/compressed.zip', 'r') as zip:
+        #                 content=zip.namelist()
+        #                 zip.extractall(dest_path+"\Decrypted")
+        #         else:
+        #             # Path(dest_path+"\Decrypted+").mkdir(parents=True, exist_ok=True)
+        #             QMessageBox.critical(self, "Warning", "Your directory has already contains 'Decrypted' folder!")
+        #         # Path(dest_path+"\Decrypted").mkdir(parents=True, exist_ok=True)
+                
+        #             # print(content[0].split("/")[-1])
+        #         remove("Temp/compressed.zip")
+                
+                
+        ######################################################  
+        if self.tabWidget.currentIndex() == 0:     
+            if os.path.isfile(src_path):#self.rb_file.isChecked():
+            #if self.rb_encrypt.isChecked(): 
                 if self.confirm_pass(password, confirm_pass):
                     with ZipFile("Temp/compressed.zip", "w") as newzip:
                         newzip.write(src_path,basename(src_path))
@@ -153,21 +216,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     QMessageBox.warning(self, "Attention", "Your passwords must be the same!")
                 
-            #elif self.rb_decrypt.isChecked():
-            elif self.tabWidget.currentIndex() == 1:
-                self.run_dec(password, src_path,'Temp/compressed.zip')
-                with ZipFile('Temp/compressed.zip', 'r') as zip:
-                    content=zip.namelist()
-                    for to_unzip in content:
-                        zip.extract(to_unzip, dest_path)
-                    print(content[0].split("/")[-1])
-                remove("Temp/compressed.zip")
-                
-        elif os.path.isdir(src_path):
-            #I should to delete the encrypted folder after decrypting it
-            #if i want
-            # if self.rb_encrypt.isChecked():
-            if self.tabWidget.currentIndex() == 0: 
+            elif os.path.isdir(src_path):
+                print("yesy")    
                 if self.confirm_pass(password, confirm_pass):
                     #self.compress_folder('Temp/compressed', src_path)
                     shutil.make_archive('Temp/compressed', 'zip',  src_path)
@@ -183,25 +233,59 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 else:
                     QMessageBox.warning(self, "Attention", "Your passwords must be the same!")
                 
+            #elif self.rb_decrypt.isChecked():
+        elif self.tabWidget.currentIndex() == 1:
+            # self.run_dec(password, src_path,'Temp/compressed.zip')
+            # with ZipFile('Temp/compressed.zip', 'r') as zip:
+            #     content=zip.namelist()
+            #     for to_unzip in content:
+            #         zip.extract(to_unzip, dest_path)
+            #     print(content[0].split("/")[-1])
+            # remove("Temp/compressed.zip")
+            self.run_dec(password, src_path,'Temp/compressed.zip')
+            # with ZipFile('Temp/compressed.zip', 'r') as zip:
+            #     content=zip.namelist()
+                # zip.extractall(dest_path+str(content[0]))
+            # self.compress_folder(dest_path+str(content[0]), 'Temp/compressed.zip')
+            CHECK_FOLDER = os.path.isdir(dest_path+"\Decrypted")
+            if not CHECK_FOLDER:
+                Path(dest_path+"\Decrypted").mkdir(parents=True, exist_ok=True)
+                with ZipFile('Temp/compressed.zip', 'r') as zip:
+                    content=zip.namelist()
+                    zip.extractall(dest_path+"\Decrypted")
             else:
-                self.run_dec(password, src_path,'Temp/compressed.zip')
-                # with ZipFile('Temp/compressed.zip', 'r') as zip:
-                #     content=zip.namelist()
-                    # zip.extractall(dest_path+str(content[0]))
-                # self.compress_folder(dest_path+str(content[0]), 'Temp/compressed.zip')
-                CHECK_FOLDER = os.path.isdir(dest_path+"\Decrypted")
-                if not CHECK_FOLDER:
-                    Path(dest_path+"\Decrypted").mkdir(parents=True, exist_ok=True)
-                    with ZipFile('Temp/compressed.zip', 'r') as zip:
-                        content=zip.namelist()
-                        zip.extractall(dest_path+"\Decrypted")
-                else:
-                    # Path(dest_path+"\Decrypted+").mkdir(parents=True, exist_ok=True)
-                    QMessageBox.critical(self, "Warning", "Your directory has already contains 'Decrypted' folder!")
-                # Path(dest_path+"\Decrypted").mkdir(parents=True, exist_ok=True)
-                
-                    # print(content[0].split("/")[-1])
-                remove("Temp/compressed.zip")
+                # Path(dest_path+"\Decrypted+").mkdir(parents=True, exist_ok=True)
+                QMessageBox.critical(self, "Warning", "Your directory has already contains 'Decrypted' folder!")
+            # Path(dest_path+"\Decrypted").mkdir(parents=True, exist_ok=True)
+            
+                # print(content[0].split("/")[-1])
+            remove("Temp/compressed.zip")
+    
+        #I should to delete the encrypted folder after decrypting it
+        #if i want
+        # if self.rb_encrypt.isChecked():
+        # if self.tabWidget.currentIndex() == 0: 
+            
+            
+        # else:
+        #     self.run_dec(password, src_path,'Temp/compressed.zip')
+        #     # with ZipFile('Temp/compressed.zip', 'r') as zip:
+        #     #     content=zip.namelist()
+        #         # zip.extractall(dest_path+str(content[0]))
+        #     # self.compress_folder(dest_path+str(content[0]), 'Temp/compressed.zip')
+        #     CHECK_FOLDER = os.path.isdir(dest_path+"\Decrypted")
+        #     if not CHECK_FOLDER:
+        #         Path(dest_path+"\Decrypted").mkdir(parents=True, exist_ok=True)
+        #         with ZipFile('Temp/compressed.zip', 'r') as zip:
+        #             content=zip.namelist()
+        #             zip.extractall(dest_path+"\Decrypted")
+        #     else:
+        #         # Path(dest_path+"\Decrypted+").mkdir(parents=True, exist_ok=True)
+        #         QMessageBox.critical(self, "Warning", "Your directory has already contains 'Decrypted' folder!")
+        #     # Path(dest_path+"\Decrypted").mkdir(parents=True, exist_ok=True)
+            
+        #         # print(content[0].split("/")[-1])
+        #     remove("Temp/compressed.zip")
                 
 app=QApplication([])
 window=MainWindow()

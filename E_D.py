@@ -5,7 +5,8 @@
 """DONE===>4. Fix the design"""
 """5. Fix imported Libraries"""
 """6. Merge compress_folder() with the main function of enc_dec"""
-"""7. Be careful about just one button to enc and dec, so if we clicked on this button the two functions will run, and thats a big mistake"""
+"""7. Be careful about just one button to enc and dec, so if we clicked on this button the two functions will run, and thats a big mistake
+And the second reson is for sugregation of lineEdits, beacusei dont enter line edits of dec yet"""
 
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
@@ -242,7 +243,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             #         zip.extract(to_unzip, dest_path)
             #     print(content[0].split("/")[-1])
             # remove("Temp/compressed.zip")
+            
             self.run_dec(password, src_path,'Temp/compressed.zip')
+            # shutil.unpack_archive('Temp/compressed.zip', dest_path)
             # with ZipFile('Temp/compressed.zip', 'r') as zip:
             #     content=zip.namelist()
                 # zip.extractall(dest_path+str(content[0]))

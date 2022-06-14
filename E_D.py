@@ -4,9 +4,10 @@
 """3. Should check if the password is correct, if not ===>QMessageBox"""
 """DONE===>4. Fix the design"""
 """5. Fix imported Libraries"""
-"""6. Merge compress_folder() with the main function of enc_dec"""
-"""7. Be careful about just one button to enc and dec, so if we clicked on this button the two functions will run, and thats a big mistake
-And the second reson is for sugregation of lineEdits, beacusei dont enter line edits of dec yet"""
+"""DONE===>6. Merge compress_folder() with the main function of enc_dec"""
+"""DONE===>7. Be careful about just one button to enc and dec, so if we clicked on this button the two functions will run, and thats a big mistake
+            And the second reson is for sugregation of lineEdits, beacusei dont enter line edits of dec yet"""
+"""8. Try gzip(tar.gz) or 'tar' library instead of zipfile"""
 
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
@@ -23,6 +24,7 @@ import zipfile
 from pathlib import Path
 from datetime import datetime as dt
 from Cryptodome.Util.Padding import pad
+# import gzip
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -35,7 +37,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.btn_browse_destination.clicked.connect(lambda: self.browse(self.lineEdit_destination, "fldr"))
         self.btn_browse_destination_dec.clicked.connect(lambda: self.browse(self.lineEdit_destination_dec, "fldr"))
         
-        self.btn_run.clicked.connect(lambda: self.choose_enc_dec(self.lineEdit_password.text(), self.lineEdit_password_confirm.text(), self.lineEdit_source.text(), self.lineEdit_destination.text()))
+        self.btn_run_enc.clicked.connect(lambda: self.choose_enc_dec(self.lineEdit_password.text(), self.lineEdit_password_confirm.text(), self.lineEdit_source.text(), self.lineEdit_destination.text()))
+        self.btn_run_dec.clicked.connect(lambda: self.choose_enc_dec(self.lineEdit_password_dec.text(), None, self.lineEdit_source_dec.text(), self.lineEdit_destination_dec.text()))
         # self.btn_test.clicked.connect(lambda: self.test(self.lineEdit_destination.text(), self.lineEdit_source.text()))
         
     def compress_folder(self, output, input):
@@ -98,7 +101,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 padding_length = (bs - len(chunk) % bs) or bs
                 chunk += str.encode(padding_length * chr(padding_length))
                 finished = True
-            out_file.write(cipher.encrypt(chunk))
+            out_file.write(cipher.encrypt(pad(chunk, 16)))
 
     def decrypt(self, in_file, out_file, password, key_length=32):
         global bs
@@ -110,12 +113,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         next_chunk = ''
         finished = False
         while not finished:
-            chunk, next_chunk = next_chunk, cipher.decrypt(pad(in_file.read(1024 * bs),16))
+            chunk, next_chunk = next_chunk, cipher.decrypt(in_file.read(1024 * bs))
             if len(next_chunk) == 0:
                 padding_length = chunk[-1]
                 chunk = chunk[:-padding_length]
                 finished = True 
-            out_file.write(bytes(x for x in chunk)) 
+            out_file.write(bytes(x for x in chunk))
 
     def derive_key_and_iv(self, password, salt, key_length, iv_length): 
         d = d_i = b''
@@ -243,17 +246,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             #         zip.extract(to_unzip, dest_path)
             #     print(content[0].split("/")[-1])
             # remove("Temp/compressed.zip")
-            
+            print("Decrypting")
             self.run_dec(password, src_path,'Temp/compressed.zip')
             # shutil.unpack_archive('Temp/compressed.zip', dest_path)
             # with ZipFile('Temp/compressed.zip', 'r') as zip:
             #     content=zip.namelist()
                 # zip.extractall(dest_path+str(content[0]))
             # self.compress_folder(dest_path+str(content[0]), 'Temp/compressed.zip')
+            print("Checking")
             CHECK_FOLDER = os.path.isdir(dest_path+"\Decrypted")
             if not CHECK_FOLDER:
                 Path(dest_path+"\Decrypted").mkdir(parents=True, exist_ok=True)
                 with ZipFile('Temp/compressed.zip', 'r') as zip:
+                    print("Unzipping")
                     content=zip.namelist()
                     zip.extractall(dest_path+"\Decrypted")
             else:

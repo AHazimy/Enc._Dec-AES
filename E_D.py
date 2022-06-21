@@ -24,7 +24,7 @@ import zipfile
 from pathlib import Path
 from datetime import datetime as dt
 from Cryptodome.Util.Padding import pad
-# import gzip
+
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):

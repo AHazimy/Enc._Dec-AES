@@ -39,7 +39,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
         self.btn_run_enc.clicked.connect(lambda: self.choose_enc_dec(self.lineEdit_password.text(), self.lineEdit_password_confirm.text(), self.lineEdit_source.text(), self.lineEdit_destination.text()))
         self.btn_run_dec.clicked.connect(lambda: self.choose_enc_dec(self.lineEdit_password_dec.text(), None, self.lineEdit_source_dec.text(), self.lineEdit_destination_dec.text()))
-        # self.btn_test.
+        
         
     def compress_folder(self, output, input):
         if self.rb_encrypt.isChecked():

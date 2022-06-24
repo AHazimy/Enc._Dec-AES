@@ -3,7 +3,7 @@
 """DONE===>######### Big Bug ###########3. Fix The path or the name or the type for the decrypted files and folders"""
 """3. Should check if the password is correct, if not ===>QMessageBox"""
 """DONE===>4. Fix the design"""
-"""5. Fix imported Libraries"""
+"""DONE===>5. Fix imported Libraries"""
 """DONE===>6. Merge compress_folder() with the main function of enc_dec"""
 """DONE===>7. Be careful about just one button to enc and dec, so if we clicked on this button the two functions will run, and thats a big mistake
             And the second reson is for sugregation of lineEdits, beacusei dont enter line edits of dec yet"""
@@ -57,8 +57,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             line_edit.setText(filename[0])
 
         
-        
-    #My work is here      
+ 
     # def browse(self, line_edit, status, btn):
     #     if btn=='folder':
     #         condition_1=None

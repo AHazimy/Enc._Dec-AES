@@ -25,8 +25,6 @@ from pathlib import Path
 from datetime import datetime as dt
 from Cryptodome.Util.Padding import pad
 
-
-
 class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
@@ -57,7 +55,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             line_edit.setText(filename[0])
 
         
- 
     # def browse(self, line_edit, status, btn):
     #     if btn=='folder':
     #         condition_1=None
@@ -81,8 +78,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     #         # else:
     #         #     filename=QFileDialog.getSaveFileName(self, 'Save File', '', '')
     #         #     line_edit.setText(filename[0])
-                
-
 
     def encrypt(self, in_file, out_file, password, key_length=32):
         global bs

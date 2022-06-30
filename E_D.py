@@ -7,7 +7,7 @@
 """DONE===>6. Merge compress_folder() with the main function of enc_dec"""
 """DONE===>7. Be careful about just one button to enc and dec, so if we clicked on this button the two functions will run, and thats a big mistake
             And the second reson is for sugregation of lineEdits, beacusei dont enter line edits of dec yet"""
-"""8. Try gzip(tar.gz) or 'tar' library instead of zipfile"""
+"""8. Try gzip(tar.gz) or 'tar' library instead of zipfileasd"""
 
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *

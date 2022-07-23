@@ -1,7 +1,7 @@
 """DONE===>1. Ability to Encrypt and Decrypt Directory"""
 """DONE===>2. Ability to Encrypt and Decrypt Files"""
 """DONE===>######### Big Bug ###########3. Fix The path or the name or the type for the decrypted files and folders"""
-"""3. Should check if the password is correct, if not ===>QMessageBox"""
+"""3. Should check if the password is correct, if not ===> QMessageBox"""
 """DONE===>4. Fix the design"""
 """DONE===>5. Fix imported Libraries"""
 """DONE===>6. Merge compress_folder() with the main function of enc_dec"""
@@ -72,12 +72,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     #             dirName=QFileDialog.getExistingDirectory(None, 'Select a folder:', 'C:\\',QFileDialog.ShowDirsOnly)
     #             line_edit.setText(dirName)
     #     elif status == "dest":
-    #         # if (self.rb_file.isChecked() and self.tabWidget.currentIndex()==1) or (self.rb_folder.isChecked() and self.tabWidget.currentIndex()==1):
+             # if (self.rb_file.isChecked() and self.tabWidget.currentIndex()==1) or (self.rb_folder.isChecked() and self.tabWidget.currentIndex()==1):
     #         filename=QFileDialog.getExistingDirectory(None, 'Select a folder:', 'C:\\',QFileDialog.ShowDirsOnly)
     #         line_edit.setText(filename)
-    #         # else:
-    #         #     filename=QFileDialog.getSaveFileName(self, 'Save File', '', '')
-    #         #     line_edit.setText(filename[0])
+             # else:
+             #     filename=QFileDialog.getSaveFileName(self, 'Save File', '', '')
+             #     line_edit.setText(filename[0])
 
     def encrypt(self, in_file, out_file, password, key_length=32):
         global bs
